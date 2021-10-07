@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import audioop
 import os
 import sys
 import asyncio
@@ -13,7 +14,11 @@ from vosk import Model, SpkModel, KaldiRecognizer
 def process_chunk(rec, message):
     if message == '{"eof" : 1}':
         return rec.FinalResult(), True
-    elif rec.AcceptWaveform(message):
+    # left channel
+    newaudiodata = audioop.tomono(message, 2, 1, 0)
+    # right channel
+    #newaudiodata = audioop.tomono(message, 2, 0, 1)
+    if rec.AcceptWaveform(newaudiodata):
         return rec.Result(), False
     else:
         return rec.PartialResult(), False
