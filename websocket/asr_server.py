@@ -22,7 +22,7 @@ def process_chunk(rec, message):
         return rec.Result(), False
     else:
         #return rec.PartialResult(), False
-        return '', False
+        return [], False
 
 async def recognize(websocket, path):
     global model
