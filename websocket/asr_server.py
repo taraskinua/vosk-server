@@ -21,7 +21,8 @@ def process_chunk(rec, message):
     if rec.AcceptWaveform(newaudiodata):
         return rec.Result(), False
     else:
-        return rec.PartialResult(), False
+        #return rec.PartialResult(), False
+        return '', False
 
 async def recognize(websocket, path):
     global model
